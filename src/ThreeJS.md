@@ -197,5 +197,132 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 const orbitControl = new OrbitControls(camera, dom);
 ```
 
+
+## 五、BufferGeometry
+###1. 概念
+缓冲区类型几何体BufferGeometry是Three.js的核心类之一，立方体BoxBufferGeometry、圆柱体CylinderBufferGeometry、球体SphereBufferGeometry等几何体类的基类都是BufferGeometry。
+
+BufferGeometry对原生WebGL中的顶点位置、顶点纹理坐标UV、顶点颜色、顶点法向量、顶点索引等顶点数据进行了封装
+###2. 实现
+#####BufferGeometry自定义一个几何体
+```java
+// 创建一个缓冲类型的几何体对象
+var geo = new THREE.BufferGeometry();
+//类型数组创建顶点数据  数组中包含6个顶点的xyz坐标数据
+var verArr = new Float32Array([
+  1, 2, 3,
+  49, 2, 4,
+  -1, 99, -1,
+  1, 1, 9,
+  6, 5, 108,
+  48, 1, 3,
+]);
+//三个为一组，表示一个顶点坐标
+var BufferAttribute = new THREE.BufferAttribute(verArr, 3);
+// 设置几何体的顶点位置数据
+geo.attributes.position = BufferAttribute;
+```
+
+>上面同样一个几何体，如果你创建不同的模型，可以渲染出来不同的效果，这里之所以说着一点，也是为了让你理解顶点指的是什么。
+
+#####三角形渲染模式：
+没有顶点索引数据复用顶点的情况下，每个三角形包含三个顶点，上面6个顶点可以渲染两个三角形。
+```java
+// 三角面(网格)渲染模式
+var material = new THREE.MeshPhongMaterial({
+  color: 0x1111ff, //三角面颜色
+  side: THREE.DoubleSide //两面可见
+});
+var mesh = new THREE.Mesh(geometry, material);
+```
+
+#####线模型：
+线渲染模式，两点确定一条直线。
+```java
+// 线条渲染模式
+var material = new THREE.LineBasicMaterial({color:0xff0000});
+//线条模型对象
+var line = new THREE.Line(geo,material);
+```
+
+#####点模型：
+点渲染模式，6个顶点渲染出来6个方形点。
+```java
+var material = new THREE.PointsMaterial({
+  color: 0xff1133,
+  size: 6.0 //点对象像素尺寸
+});
+ //点模型对象
+var points = new THREE.Points(geo, material);
+```
+
+###3. `.attributes`属性
+three.js提供的BufferAttribute类用于创建一个表示一组同类顶点数据的对象，可以用BufferAttribute。
+
+几何体的.attributes属性是除了顶点索引数据以外所有顶点数据的集合，比如.attributes.position 表示顶点位置坐标数据，.attributes.uv表示顶点纹理坐标UV数据，.attributes.normal表示顶点法向量数据，所有的类型的顶点数据都是一一对应的。.attributes.position、.attributes.uv、.attributes.normal的属性值都是BufferAttribute对象。
+
+###3. `.index`属性
+.index属性的值是顶点索引数据构成的BufferAttribute对象，如果你有一定的原生WebGL基础，应该知道顶点索引的功能是复用顶点数据，比如一定矩形有一个顶点，如果不设置顶点索引，需要至少6个顶点才能绘制两个三角形组合出来一个矩形，如果定义顶点索引数据，重合的两个顶点可以复用顶点数据，只需要顶点4个顶点坐标即可。
+
+#####6个顶点定义一个矩形
+```java
+//类型数组创建顶点位置position数据
+var vertices = new Float32Array([
+  10, 10, 10,   //顶点1位置
+  90, 10, 10,  //顶点2位置
+  90, 90, 10, //顶点3位置
+
+  10, 10, 10,   //顶点4位置   和顶点1位置相同
+  90, 90, 10, //顶点5位置  和顶点3位置相同
+  10, 90, 10,  //顶点6位置
+]);
+var attribue = new THREE.BufferAttribute(vertices, 3);
+geometry.attributes.position = attribue
+```
+
+#####4个顶点定义一个矩形
+```java
+var geometry = new THREE.BufferGeometry();
+var vertices = new Float32Array([
+  10, 10, 10, //顶点1位置
+  90, 10, 10, //顶点2位置
+  90, 90, 10, //顶点3位置
+  10, 90, 10, //顶点4位置
+]);
+var attribue = new THREE.BufferAttribute(vertices, 3);
+geometry.attributes.position = attribue
+
+// Uint16Array类型数组创建顶点索引数据,如果顶点数量更多可以使用Uint32Array来创建顶点索引数据的类型数组对象
+var indexes = new Uint16Array([
+  0, 1, 2, 0, 2, 3,
+])
+// 索引数据赋值给几何体的index属性
+geometry.index = new THREE.BufferAttribute(indexes, 1);
+```
+
+###4. `.attribute()`方法
+.addAttribute()方法执行的时候，本质上是改变的.attributes属性，.attributes属性可以直接设置.attributes.position、.attributes.uv等属性，也可以通过.addAttribute()方法设置。
+
+#####直接设置.attributes.position
+```java
+geometry.attributes.position = new THREE.BufferAttribute(vertices, 3)
+```
+#####通过.addAttribute()方法设置.attributes.position等顶点属性值
+```java
+geometry.addAttribute('position',new THREE.BufferAttribute(vertices,3));
+geometry.addAttribute('normal',new THREE.BufferAttribute(normals,3));
+geometry.addAttribute('uv',new THREE.BufferAttribute(uvs,2));
+```
+
+###5. `.fromGeometry()`方法
+通过.fromGeometry()方法可以把一个几何体Geometry转化为一个缓冲类型几何体BufferGeometry。
+
+```java
+var box = new THREE.BoxGeometry()
+var BufferBox = new THREE.BufferGeometry()
+BufferBox.fromGeometry(box)
+```
+
+
 ####具体其他配置信息可以去Three.JS官方文档进行详细查阅
 https://threejs.org/

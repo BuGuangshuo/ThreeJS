@@ -1,7 +1,7 @@
 /* eslint-disable react/no-unknown-property */
 import { useState, useEffect, useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, PivotControls } from "@react-three/drei";
 
 const Cube = (props) => {
   const mesh = useRef();
