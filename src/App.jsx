@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { Select } from "antd";
 
-import Square from "./home/1_firstSquare";
+import Square from "./home/ThreeJS/1_firstSquare/index";
 
 import "./App.css";
-import ReactThreeFiber from "./home/react-three-fiber";
-import Plan from "./home/2_plan";
-import Drei from "./home/3_Drei";
+import ReactThreeFiber from "./home/ReactThreeFiber/react-three-fiber/index";
+import Plan from "./home/ReactThreeFiber/2_plan/index";
+import Drei from "./home/ReactThreeFiber/3_Drei/index";
 
 const { Option } = Select;
 
