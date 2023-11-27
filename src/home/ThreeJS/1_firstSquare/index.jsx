@@ -101,6 +101,7 @@ const Square = () => {
 
     // 移动摄像机
     camera.position.z = 3;
+    camera.position.x = 3;
 
     // 设置动态渲染函数并调用
     const animate = () => {

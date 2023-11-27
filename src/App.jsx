@@ -7,35 +7,66 @@ import "./App.css";
 import ReactThreeFiber from "./home/ReactThreeFiber/react-three-fiber/index";
 import Plan from "./home/ReactThreeFiber/2_plan/index";
 import Drei from "./home/ReactThreeFiber/3_Drei/index";
+import Transfrom_Object from "./home/ThreeJS/2_Thansform_objets";
+import Camera from "./home/ThreeJS/3_camera";
 
 const { Option } = Select;
 
 const renderEnums = {
+  Transfrom_Object: <Transfrom_Object />,
+  //--------------------------
   Three: <Square />,
   fiber: <ReactThreeFiber />,
   plan: <Plan />,
   drei: <Drei />,
+  camera: <Camera />,
 };
 
 function App() {
+  const [threeKey, setThreeKey] = useState("camera");
   const [exKey, setExKey] = useState("drei");
+  const [type, setType] = useState("Three");
 
   const renderCanvas = () => {
-    return renderEnums[exKey];
+    if (type === "Three") {
+      return renderEnums[threeKey];
+    } else {
+      return renderEnums[exKey];
+    }
+  };
+
+  const onTypeChange = (val) => {
+    setType(val);
   };
 
   return (
     <div>
-      <Select
-        value={exKey}
-        onChange={(e) => setExKey(e)}
-        style={{ width: 170 }}
-      >
-        <Option value="Three">Three.JS</Option>
-        <Option value="fiber">React-Three-Fiber</Option>
-        <Option value="plan">plan</Option>
-        <Option value="drei">drei</Option>
+      <Select value={type} onChange={onTypeChange}>
+        <Option value="Three">ThreeJs</Option>
+        <Option value="React-Three-Fiber">React-Three-Fiber</Option>
       </Select>
+
+      {type === "Three" ? (
+        <Select
+          value={threeKey}
+          onChange={(e) => setThreeKey(e)}
+          style={{ width: 170 }}
+        >
+          <Option value="Transfrom_Object">Transfrom_Object</Option>
+          <Option value="camera">camera</Option>
+        </Select>
+      ) : (
+        <Select
+          value={exKey}
+          onChange={(e) => setExKey(e)}
+          style={{ width: 170 }}
+        >
+          <Option value="Three">Three.JS</Option>
+          <Option value="fiber">React-Three-Fiber</Option>
+          <Option value="plan">plan</Option>
+          <Option value="drei">drei</Option>
+        </Select>
+      )}
 
       <div>{renderCanvas()}</div>
     </div>
