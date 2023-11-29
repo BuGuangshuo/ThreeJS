@@ -9,6 +9,8 @@ import Plan from "./home/ReactThreeFiber/2_plan/index";
 import Drei from "./home/ReactThreeFiber/3_Drei/index";
 import Transfrom_Object from "./home/ThreeJS/2_Thansform_objets";
 import Camera from "./home/ThreeJS/3_camera";
+import Ultimate from "./home/ThreeJS/4_Ultimate";
+import Geometries from "./home/ThreeJS/5_geometries";
 
 const { Option } = Select;
 
@@ -20,10 +22,12 @@ const renderEnums = {
   plan: <Plan />,
   drei: <Drei />,
   camera: <Camera />,
+  ultimeate: <Ultimate />,
+  geometries: <Geometries />,
 };
 
 function App() {
-  const [threeKey, setThreeKey] = useState("camera");
+  const [threeKey, setThreeKey] = useState("geometries");
   const [exKey, setExKey] = useState("drei");
   const [type, setType] = useState("Three");
 
@@ -54,6 +58,8 @@ function App() {
         >
           <Option value="Transfrom_Object">Transfrom_Object</Option>
           <Option value="camera">camera</Option>
+          <Option value="ultimeate">ultimeate</Option>
+          <Option value="geometries">geometries</Option>
         </Select>
       ) : (
         <Select
