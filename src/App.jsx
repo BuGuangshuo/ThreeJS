@@ -11,6 +11,7 @@ import Transfrom_Object from "./home/ThreeJS/2_Thansform_objets";
 import Camera from "./home/ThreeJS/3_camera";
 import Ultimate from "./home/ThreeJS/4_Ultimate";
 import Geometries from "./home/ThreeJS/5_geometries";
+import DebugUI from "./home/ThreeJS/6_debugUi";
 
 const { Option } = Select;
 
@@ -24,10 +25,11 @@ const renderEnums = {
   camera: <Camera />,
   ultimeate: <Ultimate />,
   geometries: <Geometries />,
+  debugUI: <DebugUI />,
 };
 
 function App() {
-  const [threeKey, setThreeKey] = useState("geometries");
+  const [threeKey, setThreeKey] = useState("debugUI");
   const [exKey, setExKey] = useState("drei");
   const [type, setType] = useState("Three");
 
@@ -60,6 +62,7 @@ function App() {
           <Option value="camera">camera</Option>
           <Option value="ultimeate">ultimeate</Option>
           <Option value="geometries">geometries</Option>
+          <Option value="debugUI">debugUI</Option>
         </Select>
       ) : (
         <Select
