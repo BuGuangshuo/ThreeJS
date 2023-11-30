@@ -12,6 +12,7 @@ import Camera from "./home/ThreeJS/3_camera";
 import Ultimate from "./home/ThreeJS/4_Ultimate";
 import Geometries from "./home/ThreeJS/5_geometries";
 import DebugUI from "./home/ThreeJS/6_debugUi";
+import Textures from "./home/ThreeJS/7_Textures";
 
 const { Option } = Select;
 
@@ -26,10 +27,11 @@ const renderEnums = {
   ultimeate: <Ultimate />,
   geometries: <Geometries />,
   debugUI: <DebugUI />,
+  textures: <Textures />,
 };
 
 function App() {
-  const [threeKey, setThreeKey] = useState("debugUI");
+  const [threeKey, setThreeKey] = useState("textures");
   const [exKey, setExKey] = useState("drei");
   const [type, setType] = useState("Three");
 
@@ -63,6 +65,7 @@ function App() {
           <Option value="ultimeate">ultimeate</Option>
           <Option value="geometries">geometries</Option>
           <Option value="debugUI">debugUI</Option>
+          <Option value="textures">textures</Option>
         </Select>
       ) : (
         <Select
