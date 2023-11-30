@@ -4,6 +4,7 @@ import * as THREE from "three";
 import * as dat from "dat.gui";
 
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { gsap } from "gsap";
 
 /*
   debugUI
@@ -14,10 +15,6 @@ const DebugUI = () => {
   const size = {
     width: window.innerWidth,
     height: window.innerHeight,
-  };
-
-  const parameters = {
-    color: "#5cadf8",
   };
 
   useEffect(() => {
@@ -41,6 +38,14 @@ const DebugUI = () => {
 
     scene.add(mesh);
 
+    const parameters = {
+      color: "#5cadf8",
+      // 可以在对象中添加自定义方法
+      spin: () => {
+        gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + 10 });
+      },
+    };
+
     // debug
     // gui.add(mesh.position, "y", -3, 3, 0.01); // 参数：控制对象，属性名称，最小值，最大值，精度
 
@@ -55,6 +60,9 @@ const DebugUI = () => {
     gui.addColor(parameters, "color").onChange(() => {
       material.color.set(parameters.color);
     });
+
+    // 添加旋转
+    gui.add(parameters, "spin");
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
