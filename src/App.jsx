@@ -14,6 +14,7 @@ import Geometries from "./home/ThreeJS/5_geometries";
 import DebugUI from "./home/ThreeJS/6_debugUi";
 import Textures from "./home/ThreeJS/7_Textures";
 import Materials from "./home/ThreeJS/8_Materials";
+import TextD from "./home/ThreeJS/9_3DText";
 
 const { Option } = Select;
 
@@ -30,10 +31,11 @@ const renderEnums = {
   debugUI: <DebugUI />,
   textures: <Textures />,
   materials: <Materials />,
+  Text3D: <TextD />,
 };
 
 function App() {
-  const [threeKey, setThreeKey] = useState("materials");
+  const [threeKey, setThreeKey] = useState("Text3D");
   const [exKey, setExKey] = useState("drei");
   const [type, setType] = useState("Three");
 
@@ -69,6 +71,7 @@ function App() {
           <Option value="debugUI">debugUI</Option>
           <Option value="textures">textures</Option>
           <Option value="materials">materials</Option>
+          <Option value="Text3D">Text3D</Option>
         </Select>
       ) : (
         <Select

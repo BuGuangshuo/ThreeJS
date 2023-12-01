@@ -17,6 +17,7 @@ const Materials = () => {
 
   useEffect(() => {
     init();
+    return gui.destroy();
   }, []);
 
   const init = () => {

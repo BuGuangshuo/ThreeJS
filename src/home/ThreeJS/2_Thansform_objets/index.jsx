@@ -42,18 +42,18 @@ const Transfrom_Object = () => {
     // Clock
     const clock = new THREE.Clock();
 
-    gsap.to(cube.position, { x: 2, direction: 1, delay: 1 });
-    gsap.to(cube.position, { x: 0, direction: 1, delay: 2 });
+    // gsap.to(cube.position, { x: 2, direction: 1, delay: 1 });
+    // gsap.to(cube.position, { x: 0, direction: 1, delay: 2 });
 
     const animate = () => {
-      //   const elapasedTime = clock.getElapsedTime();
+      const elapasedTime = clock.getElapsedTime();
       requestAnimationFrame(animate);
       render.render(scene, camera);
-      //   cube.rotation.y = elapasedTime * Math.PI * 2; // 每秒转一圈
+      // cube.rotation.y = elapasedTime * Math.PI * 2; // 每秒转一圈
 
-      //   camera.position.x = Math.sin(elapasedTime);
-      //   camera.position.y = Math.cos(elapasedTime);
-      //   camera.lookAt(cube.position); // 设置摄像机只看像物体中间
+      // camera.position.x = Math.sin(elapasedTime);
+      // camera.position.y = Math.cos(elapasedTime);
+      // camera.lookAt(cube.position); // 设置摄像机只看像物体中间
     };
     animate();
   };
