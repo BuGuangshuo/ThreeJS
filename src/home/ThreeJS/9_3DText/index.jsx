@@ -41,7 +41,7 @@ const TextD = () => {
     */
 
     const textureLoader = new THREE.TextureLoader();
-    const matcapTexture = textureLoader.load("/texture/matcaps/texture1.png");
+    const matcapTexture = textureLoader.load("/texture/matcaps/texture3.png");
 
     // fonts
     const fontLoader = new FontLoader();
