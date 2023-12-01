@@ -22,10 +22,20 @@ const Materials = () => {
   const init = () => {
     // Textures
     const texturesLoader = new THREE.TextureLoader();
+    const cubeTextureLoader = new THREE.CubeTextureLoader(); // 立方体纹理加载器
 
     const birckTexture = texturesLoader.load("/Birck.jpg");
     const lensFXTexture = texturesLoader.load("/Texturelabs_LensFX_247M.jpg");
     const woodTexture = texturesLoader.load("/Texturelabs_Wood_145M.jpg");
+
+    const envTexture = cubeTextureLoader.load([
+      "/Standard-Cube-Map/px.png",
+      "/Standard-Cube-Map/nx.png",
+      "/Standard-Cube-Map/py.png",
+      "/Standard-Cube-Map/ny.png",
+      "/Standard-Cube-Map/pz.png",
+      "/Standard-Cube-Map/nz.png",
+    ]);
 
     const scene = new THREE.Scene();
 
@@ -102,19 +112,42 @@ const Materials = () => {
         网格标准材料 MeshStandardMaterial
     */
 
-    const material = new THREE.MeshStandardMaterial();
-    material.metalness = 0.45; // 粗糙度
-    material.roughness = 0.45; // 金属度
-    material.side = THREE.DoubleSide;
+    // const material = new THREE.MeshStandardMaterial();
+    // material.metalness = 0.45; // 粗糙度
+    // material.roughness = 0.45; // 金属度
+    // material.side = THREE.DoubleSide;
     // material.map = woodTexture;
-    material.aoMap = woodTexture; // 使用aoMap需要设置UV坐标
-    material.aoMapIntensity = 2;
+    // material.aoMap = woodTexture; // 使用aoMap需要设置UV坐标
+    // material.aoMapIntensity = 1;
+    // material.displacementMap = woodTexture; // 位移map 但是需要足够多的顶点来增加位移细节
+    // material.displacementScale = 0; // 位移尺幅(搭配位移map)
+    // material.metalnessMap = woodTexture;
+    // material.roughnessMap = woodTexture;
+    // material.normalMap = woodTexture;
+    // material.normalScale.set(0.5, 0.5);
+
+    // gui.add(material, "metalness").min(0).max(1).step(0.001);
+    // gui.add(material, "roughness").min(0).max(1).step(0.001);
+    // gui.add(material, "aoMapIntensity").min(0).max(10).step(0.0001);
+    // gui.add(material, "displacementScale").min(0).max(1).step(0.0001);
+
+    /* 
+        环境Map
+    */
+    const material = new THREE.MeshStandardMaterial();
+    material.metalness = 0.7; // 粗糙度
+    material.roughness = 0.2; // 金属度
+    material.envMap = envTexture;
 
     gui.add(material, "metalness").min(0).max(1).step(0.001);
     gui.add(material, "roughness").min(0).max(1).step(0.001);
+    gui.add(material, "aoMapIntensity").min(0).max(10).step(0.0001);
+    gui.add(material, "displacementScale").min(0).max(1).step(0.0001);
+
     // 创建球体
     const sphere = new THREE.Mesh(
       new THREE.SphereGeometry(0.5, 16, 16),
+      //   new THREE.SphereGeometry(0.5, 64, 64), // 增加细分
       material
     );
 
@@ -122,6 +155,10 @@ const Materials = () => {
 
     // 创建平面
     const plane = new THREE.Mesh(new THREE.PlaneGeometry(1, 1), material);
+    // const plane = new THREE.Mesh(
+    //   new THREE.PlaneGeometry(1, 1, 100, 100),
+    //   material
+    // ); // 增加细分
 
     plane.geometry.setAttribute(
       "uv2",
@@ -131,6 +168,7 @@ const Materials = () => {
     // 创建甜甜圈形
     const torus = new THREE.Mesh(
       new THREE.TorusGeometry(0.3, 0.2, 16, 32),
+      //   new THREE.TorusGeometry(0.3, 0.2, 64, 128), // 增加细分
       material
     );
 
