@@ -25,10 +25,6 @@ const Materials = () => {
     const texturesLoader = new THREE.TextureLoader();
     const cubeTextureLoader = new THREE.CubeTextureLoader(); // 立方体纹理加载器
 
-    const birckTexture = texturesLoader.load("/Birck.jpg");
-    const lensFXTexture = texturesLoader.load("/Texturelabs_LensFX_247M.jpg");
-    const woodTexture = texturesLoader.load("/Texturelabs_Wood_145M.jpg");
-
     const envTexture = cubeTextureLoader.load([
       "/Standard-Cube-Map/px.png",
       "/Standard-Cube-Map/nx.png",
