@@ -369,3 +369,8 @@ https://threejs.org/
 23. ***
 24. 3DText
 25. 边界
+26. ***
+27. Light
+28. 阴影
+29. 优化阴影
+30. Baking 阴影

@@ -15,6 +15,9 @@ import DebugUI from "./home/ThreeJS/6_debugUi";
 import Textures from "./home/ThreeJS/7_Textures";
 import Materials from "./home/ThreeJS/8_Materials";
 import TextD from "./home/ThreeJS/9_3DText";
+import Light from "./home/ThreeJS/10_Light";
+import Shadows from "./home/ThreeJS/11_Shadows";
+import GhostHouse from "./home/ThreeJS/12_ghostHouse";
 
 const { Option } = Select;
 
@@ -32,10 +35,13 @@ const renderEnums = {
   textures: <Textures />,
   materials: <Materials />,
   Text3D: <TextD />,
+  Light: <Light />,
+  Shadows: <Shadows />,
+  ghostHouse: <GhostHouse />,
 };
 
 function App() {
-  const [threeKey, setThreeKey] = useState("Text3D");
+  const [threeKey, setThreeKey] = useState("ghostHouse");
   const [exKey, setExKey] = useState("drei");
   const [type, setType] = useState("Three");
 
@@ -72,6 +78,9 @@ function App() {
           <Option value="textures">textures</Option>
           <Option value="materials">materials</Option>
           <Option value="Text3D">Text3D</Option>
+          <Option value="Light">Light</Option>
+          <Option value="Shadows">Shadows</Option>
+          <Option value="ghostHouse">ghostHouse</Option>
         </Select>
       ) : (
         <Select
