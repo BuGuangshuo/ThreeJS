@@ -18,6 +18,8 @@ import TextD from "./home/ThreeJS/9_3DText";
 import Light from "./home/ThreeJS/10_Light";
 import Shadows from "./home/ThreeJS/11_Shadows";
 import GhostHouse from "./home/ThreeJS/12_ghostHouse";
+import Partical from "./home/ThreeJS/13_particals";
+import Galaxy from "./home/ThreeJS/14_Galaxy";
 
 const { Option } = Select;
 
@@ -38,10 +40,12 @@ const renderEnums = {
   Light: <Light />,
   Shadows: <Shadows />,
   ghostHouse: <GhostHouse />,
+  Partical: <Partical />,
+  Galaxy: <Galaxy />,
 };
 
 function App() {
-  const [threeKey, setThreeKey] = useState("ghostHouse");
+  const [threeKey, setThreeKey] = useState("Galaxy");
   const [exKey, setExKey] = useState("drei");
   const [type, setType] = useState("Three");
 
@@ -81,6 +85,8 @@ function App() {
           <Option value="Light">Light</Option>
           <Option value="Shadows">Shadows</Option>
           <Option value="ghostHouse">ghostHouse</Option>
+          <Option value="Partical">Partical</Option>
+          <Option value="Galaxy">Galaxy</Option>
         </Select>
       ) : (
         <Select
